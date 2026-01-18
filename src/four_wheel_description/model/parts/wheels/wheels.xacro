@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <joint name="d1_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="d1_wheel_link"/>
+        <origin xyz="${-s2} ${-s4} ${radius}" rpy="0 0 0" /> 
+        <axis xyz="0 1 0" />
+        <limit effort="50000" velocity="10"/> 
+        <dynamics damping="1.0" friction="1.0" />
+    </joint>
+
+    <link name="d1_wheel_link">
+        <visual>
+            <origin xyz="0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </collision>
+
+        <xacro:inertia_wheel />
+    </link>
+
+    <joint name="d2_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="d2_wheel_link"/>
+        <origin xyz="${-s2} ${s4} ${radius}" rpy="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="50000" velocity="10"/>
+        <dynamics damping="1.0" friction="1.0" />
+    </joint>
+
+    <link name="d2_wheel_link">
+        <visual>
+            <origin xyz="0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </collision>
+        <xacro:inertia_wheel />
+    </link>
+
+
+    <!-- Caster wheels  -->
+     <link name="caster1_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </collision>
+        <xacro:inertia_wheel />
+    </link>
+
+    <joint name="caster1_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="caster1_link"/>
+        <origin xyz="${s2} ${-s4} ${radius}" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
+        <limit effort="50000" velocity="10"/>
+        <dynamics damping="1.0" friction="1.0" />
+    </joint>
+
+
+    <link name="caster2_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${d}"/>
+            </geometry>
+        </collision>
+        <xacro:inertia_wheel />
+    </link>
+
+    <joint name="caster2_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="caster2_link"/>
+        <origin xyz="${s2} ${s4} ${radius}" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
+        <limit effort="50000" velocity="10"/>
+        <dynamics damping="1.0" friction="1.0" />
+    </joint>
+
+
+    <xacro:include filename="$(find four_wheel_description)/model/parts/wheels/wheels.gazebo.xacro" />
+</robot>

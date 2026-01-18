@@ -1,0 +1,61 @@
+[0.009s] Invoking command in '/home/kunal-jazzy/ros2_four/build/four_wheel_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/kunal-jazzy/ros2_four/build/four_wheel_description -- -j12 -l12
+[0.027s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.212s] -- Found xacro: 2.1.1 (/opt/ros/jazzy/share/xacro/cmake)
+[0.214s] -- Found robot_state_publisher: 3.3.3 (/opt/ros/jazzy/share/robot_state_publisher/cmake)
+[0.259s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.275s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.292s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.313s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.411s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.415s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.507s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.526s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.548s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.832s] -- Found ament_lint_auto: 0.17.3 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[0.909s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.910s] -- Configured 'flake8' exclude dirs and/or files: 
+[0.910s] -- Added test 'lint_cmake' to check CMake code style
+[0.910s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.911s] -- Added test 'xmllint' to check XML markup files
+[0.911s] -- Configuring done (0.9s)
+[0.915s] -- Generating done (0.0s)
+[0.917s] -- Build files have been written to: /home/kunal-jazzy/ros2_four/build/four_wheel_description
+[0.943s] Invoked command in '/home/kunal-jazzy/ros2_four/build/four_wheel_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/kunal-jazzy/ros2_four/build/four_wheel_description -- -j12 -l12
+[0.954s] Invoking command in '/home/kunal-jazzy/ros2_four/build/four_wheel_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/kunal-jazzy/ros2_four/build/four_wheel_description
+[0.960s] -- Install configuration: ""
+[0.960s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/launch
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/launch/rover.launch.py
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/four_rover_main.xacro
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/wheels
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/wheels/wheels.xacro
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/wheels/wheels.gazebo.xacro
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/base
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/base/base_link.xacro
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/base/base_link.gazebo.xacro
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/lidar
+[0.961s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/lidar/lidar.xacro
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/lidar/lidar.gazebo.xacro
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/camera
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/camera/camera.gazebo.xacro
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/camera/camera.xacro
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/four_rover_main.gazebo.xacro
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/parameters
+[0.962s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/parameters/bridge_parameters.yaml
+[0.964s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/ament_index/resource_index/package_run_dependencies/four_wheel_description
+[0.964s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/ament_index/resource_index/parent_prefix_path/four_wheel_description
+[0.964s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/environment/ament_prefix_path.sh
+[0.965s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/environment/ament_prefix_path.dsv
+[0.965s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/environment/path.sh
+[0.965s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/environment/path.dsv
+[0.965s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/local_setup.bash
+[0.965s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/local_setup.sh
+[0.966s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/local_setup.zsh
+[0.966s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/local_setup.dsv
+[0.966s] -- Installing: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/package.dsv
+[0.966s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/ament_index/resource_index/packages/four_wheel_description
+[0.967s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/cmake/four_wheel_descriptionConfig.cmake
+[0.967s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/cmake/four_wheel_descriptionConfig-version.cmake
+[0.967s] -- Up-to-date: /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/package.xml
+[0.967s] Invoked command in '/home/kunal-jazzy/ros2_four/build/four_wheel_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/kunal-jazzy/ros2_four/build/four_wheel_description

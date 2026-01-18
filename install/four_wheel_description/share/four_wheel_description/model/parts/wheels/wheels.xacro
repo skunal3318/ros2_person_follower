@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find four_wheel_description)/model/parts/wheels/wheels.gazebo.xacro" />
+</robot>
