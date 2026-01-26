@@ -1,0 +1,32 @@
+[0.723s] Invoking command in '/home/kunal-jazzy/ros2_four/src/four_control': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/kunal-jazzy/ros2_four/build/four_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kunal-jazzy/ros2_four/install/four_control/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/four_control build --build-base /home/kunal-jazzy/ros2_four/build/four_control/build install --record /home/kunal-jazzy/ros2_four/build/four_control/install.log --single-version-externally-managed install_data
+[0.905s] running egg_info
+[0.906s] creating ../../build/four_control/four_control.egg-info
+[0.918s] writing ../../build/four_control/four_control.egg-info/PKG-INFO
+[0.918s] writing dependency_links to ../../build/four_control/four_control.egg-info/dependency_links.txt
+[0.918s] writing requirements to ../../build/four_control/four_control.egg-info/requires.txt
+[0.918s] writing top-level names to ../../build/four_control/four_control.egg-info/top_level.txt
+[0.918s] writing manifest file '../../build/four_control/four_control.egg-info/SOURCES.txt'
+[0.944s] reading manifest file '../../build/four_control/four_control.egg-info/SOURCES.txt'
+[0.944s] writing manifest file '../../build/four_control/four_control.egg-info/SOURCES.txt'
+[0.944s] running build
+[0.944s] running build_py
+[0.944s] creating /home/kunal-jazzy/ros2_four/build/four_control/build
+[0.944s] creating /home/kunal-jazzy/ros2_four/build/four_control/build/lib
+[0.944s] creating /home/kunal-jazzy/ros2_four/build/four_control/build/lib/four_control
+[0.944s] copying four_control/__init__.py -> /home/kunal-jazzy/ros2_four/build/four_control/build/lib/four_control
+[0.945s] running install
+[0.949s] running install_lib
+[0.961s] creating /home/kunal-jazzy/ros2_four/install/four_control/lib/python3.12/site-packages/four_control
+[0.961s] copying /home/kunal-jazzy/ros2_four/build/four_control/build/lib/four_control/__init__.py -> /home/kunal-jazzy/ros2_four/install/four_control/lib/python3.12/site-packages/four_control
+[0.962s] byte-compiling /home/kunal-jazzy/ros2_four/install/four_control/lib/python3.12/site-packages/four_control/__init__.py to __init__.cpython-312.pyc
+[0.962s] running install_data
+[0.962s] creating /home/kunal-jazzy/ros2_four/install/four_control/share/ament_index
+[0.962s] creating /home/kunal-jazzy/ros2_four/install/four_control/share/ament_index/resource_index
+[0.962s] creating /home/kunal-jazzy/ros2_four/install/four_control/share/ament_index/resource_index/packages
+[0.962s] copying resource/four_control -> /home/kunal-jazzy/ros2_four/install/four_control/share/ament_index/resource_index/packages
+[0.962s] copying package.xml -> /home/kunal-jazzy/ros2_four/install/four_control/share/four_control
+[0.962s] running install_egg_info
+[0.975s] Copying ../../build/four_control/four_control.egg-info to /home/kunal-jazzy/ros2_four/install/four_control/lib/python3.12/site-packages/four_control-0.0.0-py3.12.egg-info
+[0.975s] running install_scripts
+[1.060s] writing list of installed files to '/home/kunal-jazzy/ros2_four/build/four_control/install.log'
+[1.080s] Invoked command in '/home/kunal-jazzy/ros2_four/src/four_control' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/kunal-jazzy/ros2_four/build/four_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kunal-jazzy/ros2_four/install/four_control/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/four_control build --build-base /home/kunal-jazzy/ros2_four/build/four_control/build install --record /home/kunal-jazzy/ros2_four/build/four_control/install.log --single-version-externally-managed install_data

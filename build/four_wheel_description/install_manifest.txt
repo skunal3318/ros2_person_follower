@@ -10,6 +10,7 @@
 /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/parts/camera/camera.xacro
 /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/model/four_rover_main.gazebo.xacro
 /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/parameters/bridge_parameters.yaml
+/home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/config/visualization_config.rviz
 /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/ament_index/resource_index/package_run_dependencies/four_wheel_description
 /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/ament_index/resource_index/parent_prefix_path/four_wheel_description
 /home/kunal-jazzy/ros2_four/install/four_wheel_description/share/four_wheel_description/environment/ament_prefix_path.sh

@@ -49,10 +49,10 @@
         </inertial>
     </xacro:macro>
     
-    <xacro:include filename="$(find four_wheel_description)/model/four_rover_main.gazebo.xacro" />
     <xacro:include filename="$(find four_wheel_description)/model/parts/base/base_link.xacro"/>
-    <xacro:include filename="$(find four_wheel_description)/model/parts/wheels/wheels.xacro"/>
-    <!-- <xacro:include filename="$(find four_wheel_description)/model/parts/lidar/lidar.xacro"/> -->
     <xacro:include filename="$(find four_wheel_description)/model/parts/camera/camera.xacro" />
+    <!-- <xacro:include filename="$(find four_wheel_description)/model/parts/lidar/lidar.xacro"/> -->
+    <xacro:include filename="$(find four_wheel_description)/model/parts/wheels/wheels.xacro"/>
+    <xacro:include filename="$(find four_wheel_description)/model/four_rover_main.gazebo.xacro" />
 
 </robot>
