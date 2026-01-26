@@ -3,7 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
-import time
+import numpy as np
 
 
 class VisualizationNode(Node):
@@ -19,71 +19,83 @@ class VisualizationNode(Node):
             10
         )
 
-        self.last_time = time.time()
-        self.fps = 0.0
-
-        self.get_logger().info('four_control visualization node started')
+        self.get_logger().info('Camera obstacle visualization started')
 
 
     def image_callback(self, msg):
-        # Convert ROS image to OpenCV
-        frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+        frame = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
         h, w, _ = frame.shape
 
-        # 1. Draw center reference line
-        cv2.line(
-            frame,
-            (w // 2, 0),
-            (w // 2, h),
-            (0, 255, 0),
-            2
-        )
+        # -------------------------
+        # 1. Region of Interest (front area)
+        # -------------------------
+        roi = frame[int(h*0.4):int(h*0.75), :]
 
-        # Draw Region of Interest (ROI)
-        roi_y_start = int(h * 0.6)
-        roi_y_end = h
+        # -------------------------
+        # 2. Grayscale + Blur
+        # -------------------------
+        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
-        cv2.rectangle(
-            frame,
-            (0, roi_y_start),
-            (w, roi_y_end),
-            (255, 0, 0),
-            2
-        )
+        # -------------------------
+        # 3. Edge Detection
+        # -------------------------
+        edges = cv2.Canny(blur, 50, 150)
 
-       
-        # FPS calculation
-        current_time = time.time()
-        dt = current_time - self.last_time
-        if dt > 0:
-            self.fps = 1.0 / dt
-        self.last_time = current_time
+        # -------------------------
+        # 4. Split regions
+        # -------------------------
+        left = edges[:, :w//3]
+        center = edges[:, w//3:2*w//3]
+        right = edges[:, 2*w//3:]
 
-    
+        left_score = np.sum(left)
+        center_score = np.sum(center)
+        right_score = np.sum(right)
+
+        # -------------------------
+        # 5. Decision logic
+        # -------------------------
+        obstacle_region = "NONE"
+        threshold = 5000
+
+        if center_score > threshold:
+            obstacle_region = "CENTER"
+        elif left_score > threshold:
+            obstacle_region = "LEFT"
+        elif right_score > threshold:
+            obstacle_region = "RIGHT"
+
+        # -------------------------
+        # 6. Visualization
+        # -------------------------
+        roi_color = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
+
+        cv2.line(roi_color, (w//3, 0), (w//3, roi.shape[0]), (255, 0, 0), 2)
+        cv2.line(roi_color, (2*w//3, 0), (2*w//3, roi.shape[0]), (255, 0, 0), 2)
+
         cv2.putText(
-            frame,
-            f'FPS: {self.fps:.1f}',
+            roi_color,
+            f"Obstacle: {obstacle_region}",
             (10, 30),
             cv2.FONT_HERSHEY_SIMPLEX,
-            0.8,
+            1,
             (0, 255, 0),
             2
         )
 
-
-        cv2.imshow('Camera View', frame)
+        # -------------------------
+        # 7. Show windows
+        # -------------------------
+        cv2.imshow("Camera View", frame)
+        cv2.imshow("Obstacle ROI (Edges)", roi_color)
         cv2.waitKey(1)
 
 
 def main():
     rclpy.init()
     node = VisualizationNode()
-
-    try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
-
+    rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
     cv2.destroyAllWindows()

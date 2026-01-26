@@ -13,14 +13,8 @@ find_package(robot_state_publisher REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-install(DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch)
-
 install(DIRECTORY model/
   DESTINATION share/${PROJECT_NAME}/model)
-
-install(DIRECTORY parameters/
-  DESTINATION share/${PROJECT_NAME}/parameters)
 
 install(DIRECTORY config/
   DESTINATION share/${PROJECT_NAME}/config)

@@ -1,2 +1,0 @@
-[console_scripts]
-visualization_node = four_control.visualization_node:main
