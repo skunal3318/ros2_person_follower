@@ -57,10 +57,10 @@ def generate_launch_description():
         output='screen'
     )
 
-    joint_state_gui = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui'
-    )
+    # joint_state_gui = Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui'
+    # )
 
     rviz_config = os.path.join(
         get_package_share_directory(namePackage),
@@ -96,7 +96,7 @@ def generate_launch_description():
         gazeboLaunch,
         robot_state_publisher,
         spawn_robot,
-        joint_state_gui,
+        # joint_state_gui,
         bridge,
         rviz
     ])
