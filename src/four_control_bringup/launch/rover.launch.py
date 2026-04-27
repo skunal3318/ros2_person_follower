@@ -23,6 +23,12 @@ def generate_launch_description():
         value_type=str
     )
 
+    world_path = os.path.join(
+        get_package_share_directory('four_worlds'),
+        'worlds',
+        'cafe.world'
+    )
+
     gazeboLaunch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
