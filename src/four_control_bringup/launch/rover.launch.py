@@ -26,7 +26,7 @@ def generate_launch_description():
     world_path = os.path.join(
         get_package_share_directory('four_worlds'),
         'worlds',
-        'cafe.world'
+        'follower_world.world'
     )
 
     gazeboLaunch = IncludeLaunchDescription(
@@ -38,7 +38,7 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'gz_args': '-r -v -v4 empty.sdf',
+            'gz_args': f'-r -v -v4 {world_path}',
             'on_exit_shutdown': 'true'
         }.items()
     )
