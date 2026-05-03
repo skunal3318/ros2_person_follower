@@ -28,7 +28,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'person_detector_node = four_control.person_detector_node:main',
+            'person_detector = four_control.person_detector:main',
         ],
     },
 )

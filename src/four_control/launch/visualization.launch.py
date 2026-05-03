@@ -7,9 +7,10 @@ def generate_launch_description():
 
         Node(
             package='four_control',
-            executable='visualization_node',
-            name='visualization_node',
+            executable='person_detector',
+            name='person_detector',
             output='screen'
+            parameters= [{'use_sim_time': True}]
         )
 
     ])
