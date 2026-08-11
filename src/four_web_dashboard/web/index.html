@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>four_rover — person follower dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>four_rover dashboard</h1>
+    <div id="connection-status" class="status status--disconnected">disconnected</div>
+  </header>
+
+  <main>
+    <section class="panel panel--scene">
+      <h2>3D pose (from /odom)</h2>
+      <div id="scene-container"></div>
+    </section>
+
+    <section class="panel panel--camera">
+      <h2>Detection feed</h2>
+      <img id="camera-feed" alt="camera feed" />
+      <div class="telemetry">
+        <div><span class="label">state</span><span id="tracking-state">searching...</span></div>
+        <div><span class="label">distance</span><span id="distance-value">-- m</span></div>
+        <div><span class="label">bearing</span><span id="bearing-value">-- deg</span></div>
+      </div>
+    </section>
+
+    <section class="panel panel--controls">
+      <h2>Manual control</h2>
+      <label class="override-toggle">
+        <input type="checkbox" id="override-toggle" />
+        Manual override (WASD / arrow keys, or buttons below)
+      </label>
+      <div class="dpad">
+        <button id="btn-forward" class="dpad__btn dpad__forward">&#8593;</button>
+        <button id="btn-left" class="dpad__btn dpad__left">&#8592;</button>
+        <button id="btn-stop" class="dpad__btn dpad__stop">&#9724;</button>
+        <button id="btn-right" class="dpad__btn dpad__right">&#8594;</button>
+        <button id="btn-back" class="dpad__btn dpad__back">&#8595;</button>
+      </div>
+      <p class="hint">Override must be checked for manual commands to reach the robot;
+        otherwise the controller keeps following the tracked person autonomously.</p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

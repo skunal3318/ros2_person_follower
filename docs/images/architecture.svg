@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4fb3ff"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="280" rx="12" fill="#0f1115"/>
+
+  <text x="500" y="34" text-anchor="middle" font-size="21" font-weight="600" fill="#e6e8ec">
+    four_rover — person-following pipeline
+  </text>
+
+  <!-- main perception/control chain -->
+  <g font-size="14">
+    <rect x="20" y="70" width="180" height="70" rx="10" fill="#171a21" stroke="#262b36"/>
+    <text x="110" y="98" text-anchor="middle" fill="#e6e8ec" font-weight="600">camera_node</text>
+    <text x="110" y="118" text-anchor="middle" fill="#8a91a0" font-size="12">webcam / sim bridge</text>
+
+    <rect x="250" y="70" width="210" height="70" rx="10" fill="#171a21" stroke="#262b36"/>
+    <text x="355" y="98" text-anchor="middle" fill="#e6e8ec" font-weight="600">person_detector_node</text>
+    <text x="355" y="118" text-anchor="middle" fill="#8a91a0" font-size="12">YOLOv8, closest person</text>
+
+    <rect x="510" y="70" width="190" height="70" rx="10" fill="#171a21" stroke="#262b36"/>
+    <text x="605" y="98" text-anchor="middle" fill="#e6e8ec" font-weight="600">controller_node</text>
+    <text x="605" y="118" text-anchor="middle" fill="#8a91a0" font-size="12">P-control + odometry</text>
+
+    <rect x="750" y="70" width="230" height="70" rx="10" fill="#171a21" stroke="#262b36"/>
+    <text x="865" y="98" text-anchor="middle" fill="#e6e8ec" font-weight="600">robot base</text>
+    <text x="865" y="118" text-anchor="middle" fill="#8a91a0" font-size="12">Gazebo diff-drive / real hw</text>
+  </g>
+
+  <g stroke="#4fb3ff" stroke-width="2" fill="none">
+    <line x1="200" y1="105" x2="246" y2="105" marker-end="url(#arrow)"/>
+    <line x1="460" y1="105" x2="506" y2="105" marker-end="url(#arrow)"/>
+    <line x1="700" y1="105" x2="746" y2="105" marker-end="url(#arrow)"/>
+  </g>
+  <g font-size="11" fill="#8a91a0" text-anchor="middle">
+    <text x="223" y="98">/camera/image_raw</text>
+    <text x="483" y="98">/person/position</text>
+    <text x="723" y="98">/cmd_vel</text>
+  </g>
+
+  <!-- web dashboard branch -->
+  <rect x="380" y="210" width="300" height="60" rx="10" fill="#171a21" stroke="#4fb3ff" stroke-opacity="0.5"/>
+  <text x="530" y="235" text-anchor="middle" fill="#e6e8ec" font-weight="600" font-size="14">web dashboard</text>
+  <text x="530" y="253" text-anchor="middle" fill="#8a91a0" font-size="12">rosbridge + Three.js / roslibjs</text>
+
+  <g stroke="#45d18f" stroke-width="1.6" fill="none">
+    <line x1="380" y1="220" x2="358" y2="143" marker-end="url(#arrow)"/>
+    <line x1="680" y1="220" x2="628" y2="143" marker-end="url(#arrow)"/>
+  </g>
+  <g font-size="11" fill="#8a91a0">
+    <text x="245" y="185">detection feed +</text>
+    <text x="245" y="199">/odom (via rosbridge)</text>
+    <text x="655" y="185" text-anchor="end">/cmd_vel_teleop,</text>
+    <text x="655" y="199" text-anchor="end">/manual_override</text>
+  </g>
+</svg>

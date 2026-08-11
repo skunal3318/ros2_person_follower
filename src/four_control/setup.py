@@ -14,6 +14,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'),
          glob('launch/*.launch.py')),
+        (os.path.join('share', package_name, 'models'),
+         glob('models/*.pt')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -28,7 +30,10 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'person_detector = four_control.person_detector:main',
+            'camera_node = four_control.camera_node:main',
+            'person_detector_node = four_control.person_detector_node:main',
+            'controller_node = four_control.controller_node:main',
+            'viewer_node = four_control.viewer_node:main',
         ],
     },
 )

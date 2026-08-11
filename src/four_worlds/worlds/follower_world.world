@@ -108,51 +108,69 @@
     </model>
 
     <!-- ================= ACTOR ================= -->
-<actor name="person_1">
-  <pose>0 0 0.90 0 0 0</pose>
+    <!-- Walking loop, derived from the actual room/robot geometry rather
+         than picked by eye:
+           - Walls sit at +/-6m, 0.2m thick -> inner face at 5.9m. The loop
+             radius (4.5m) leaves ~1.5m clearance at every edge midpoint
+             (the closest a straight segment gets to the wall), so no
+             waypoint or interpolated segment can clip a wall.
+           - The rover spawns at the world origin facing +X (`ros_gz_sim
+             create` with no -x/-y/-Y in rover.launch.py). The first
+             waypoint sits 4.5m out at a 20deg bearing from +X, inside the
+             camera's ~40deg half-FOV (horizontal_fov=1.3962634 rad in
+             camera.gazebo.xacro), so the person is visible immediately
+             instead of the robot having to search blindly at startup.
+           - 16 waypoints spaced 22.5deg apart (vs. an 8-point octagon)
+             keep every turn gentle, so the walk reads as a rounded loop
+             instead of cutting sharp polygon corners.
+           - Every non-pause segment covers the same chord length in the
+             same 3.82s, holding a constant ~0.46 m/s, comfortably under
+             controller_node's default max_linear_vel (0.6 m/s) so the
+             rover can actually close the gap and hold target_distance
+             instead of perpetually trailing at full speed. Two 3s pauses
+             (opposite sides of the loop) add natural standing breaks.
+         Mesh paths are relative to this world file; gz-sim resolves them
+         against the directory the world was loaded from. -->
+    <actor name="person_1">
+      <pose>4.23 1.54 0.90 0 0 2.116</pose>
 
-  <skin>
-    <filename>/home/kunal-jazzy/ROS2-Camera-Visualization/src/four_worlds/worlds/actor_model/walk.dae</filename>
-    <scale>1.0</scale>
-  </skin>
+      <skin>
+        <filename>actor_model/walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
 
-  <animation name="walking">
-    <filename>/home/kunal-jazzy/ROS2-Camera-Visualization/src/four_worlds/worlds/actor_model/walk.dae</filename>
-    <interpolate_x>true</interpolate_x>
-  </animation>
+      <animation name="walking">
+        <filename>actor_model/walk.dae</filename>
+        <interpolate_x>true</interpolate_x>
+      </animation>
 
-  <script>
-    <loop>true</loop>
-    <delay_start>0.0</delay_start>
-    <auto_start>true</auto_start>
-    <trajectory id="0" type="walking" tension="1.0">
-      <waypoint>
-        <time>0</time>
-        <pose>0 0 0 0 0 0</pose>
-      </waypoint>
-
-      <waypoint>
-        <time>3</time>
-        <pose>2 0 0 0 0 0</pose>
-      </waypoint>
-
-      <waypoint>
-        <time>6</time>
-        <pose>2 2 0 0 0 1.57</pose>
-      </waypoint>
-
-      <waypoint>
-        <time>9</time>
-        <pose>0 2 0 0 0 3.14</pose>
-      </waypoint>
-
-      <waypoint>
-        <time>12</time>
-        <pose>0 0 0 0 0 -1.57</pose>
-      </waypoint>
-    </trajectory>
-  </script>
-</actor>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.0</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walking" tension="1.0">
+          <waypoint><time>0.00</time><pose>4.23 1.54 0 0 0 2.116</pose></waypoint>
+          <waypoint><time>3.82</time><pose>3.32 3.04 0 0 0 2.116</pose></waypoint>
+          <waypoint><time>7.63</time><pose>1.90 4.08 0 0 0 2.509</pose></waypoint>
+          <waypoint><time>11.45</time><pose>0.20 4.50 0 0 0 2.902</pose></waypoint>
+          <waypoint><time>15.27</time><pose>-1.54 4.23 0 0 0 -2.989</pose></waypoint>
+          <waypoint><time>19.08</time><pose>-3.04 3.32 0 0 0 -2.596</pose></waypoint>
+          <waypoint><time>22.08</time><pose>-3.04 3.32 0 0 0 -2.596</pose></waypoint>
+          <waypoint><time>25.90</time><pose>-4.08 1.90 0 0 0 -2.203</pose></waypoint>
+          <waypoint><time>29.72</time><pose>-4.50 0.20 0 0 0 -1.811</pose></waypoint>
+          <waypoint><time>33.54</time><pose>-4.23 -1.54 0 0 0 -1.418</pose></waypoint>
+          <waypoint><time>37.35</time><pose>-3.32 -3.04 0 0 0 -1.025</pose></waypoint>
+          <waypoint><time>41.17</time><pose>-1.90 -4.08 0 0 0 -0.633</pose></waypoint>
+          <waypoint><time>44.99</time><pose>-0.20 -4.50 0 0 0 -0.240</pose></waypoint>
+          <waypoint><time>48.80</time><pose>1.54 -4.23 0 0 0 0.153</pose></waypoint>
+          <waypoint><time>52.62</time><pose>3.04 -3.32 0 0 0 0.545</pose></waypoint>
+          <waypoint><time>55.62</time><pose>3.04 -3.32 0 0 0 0.545</pose></waypoint>
+          <waypoint><time>59.44</time><pose>4.08 -1.90 0 0 0 0.938</pose></waypoint>
+          <waypoint><time>63.25</time><pose>4.50 -0.20 0 0 0 1.331</pose></waypoint>
+          <waypoint><time>67.07</time><pose>4.23 1.54 0 0 0 1.724</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
 
   </world>
 </sdf>
