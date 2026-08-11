@@ -3,10 +3,10 @@
 `architecture.svg` is checked in and already used by the root `README.md`.
 
 The four files below aren't included yet (this environment has no display to
-capture them) — drop them in here with these exact names and the
-**Screenshots** section in the root `README.md` will pick them up automatically
-(the `<!-- -->`-commented `<img>` tags are already in place, just uncomment
-them once the files exist):
+capture them) — drop them in here with these exact names and the **Demo**
+section in the root `README.md` will pick them up automatically (the
+`<!-- -->`-commented `<img>` tags are already in place, just uncomment them
+once the files exist):
 
 | File | Capture |
 |---|---|

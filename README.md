@@ -9,6 +9,44 @@ YOLOv8 and follows them using a proportional distance/bearing controller —
 with a live browser dashboard (Three.js + rosbridge) for monitoring and
 manual override.
 
+## Demo
+
+<!--
+Add these under docs/images/ (see docs/images/README.md for exactly what to
+capture) and uncomment:
+
+| Gazebo sim | Detection feed |
+|---|---|
+| ![Gazebo](docs/images/gazebo-sim.png) | ![Detection](docs/images/detection-feed.png) |
+
+| Web dashboard | RViz |
+|---|---|
+| ![Dashboard](docs/images/web-dashboard.png) | ![RViz](docs/images/rviz.png) |
+-->
+
+*Screenshots pending — see [`docs/images/README.md`](docs/images/README.md)
+for what to capture once you run it locally.*
+
+## Highlights
+
+- **Perception**: YOLOv8 person detection, closest-target selection by
+  bounding-box area, monocular distance/bearing estimation calibrated live
+  from `/camera/camera_info` instead of a hardcoded guess.
+- **Control**: proportional distance/bearing controller that turns to face
+  the person before driving toward them (heading-gated forward speed), with
+  an active sweep-scan search behavior instead of just stopping when
+  tracking is lost.
+- **Full-stack extension**: a rosbridge + Three.js/roslibjs browser
+  dashboard for live 3D pose, camera streaming, and manual drive override —
+  added without touching any perception code, because every node talks
+  through typed ROS topics.
+- **Simulation engineering**: the Gazebo world's walking-actor path is
+  derived from actual room/robot/camera geometry (wall clearance, FOV,
+  speed vs. the rover's max velocity) rather than picked by eye.
+- **Debugging depth**: found and fixed a topic-name mismatch, a launch-file
+  syntax bug, an inference-backlog latency bug, and a coordinate-sign
+  inversion in the control loop — see [Debugging notes](#debugging-notes).
+
 ![Architecture](docs/images/architecture.svg)
 
 ## Pipeline
@@ -85,7 +123,8 @@ stale, which looks exactly like "not really following."
 
 Distance is estimated monocularly from bounding-box height via similar
 triangles (`person_height_m`, `focal_length_px` params) — a deliberate
-approximation, not a substitute for depth/stereo; see Limitations.
+approximation, not a substitute for depth/stereo; see
+[Limitations](#limitations--next-steps).
 `person_detector_node` overrides `focal_length_px` with the real focal
 length from `/camera/camera_info` as soon as it arrives (Gazebo publishes
 this via the bridge), so the sim uses the camera's true intrinsics rather
@@ -123,34 +162,33 @@ running):
 ros2 launch four_web_dashboard web.launch.py
 ```
 
-## Screenshots
+## Debugging notes
 
-<!--
-Add these under docs/images/ (see docs/images/README.md for exactly what to
-capture) and uncomment:
+Roughly in the order they surfaced while getting this working end-to-end:
 
-| Gazebo sim | Detection feed |
-|---|---|
-| ![Gazebo](docs/images/gazebo-sim.png) | ![Detection](docs/images/detection-feed.png) |
-
-| Web dashboard | RViz |
-|---|---|
-| ![Dashboard](docs/images/web-dashboard.png) | ![RViz](docs/images/rviz.png) |
--->
-
-*Screenshots pending — see [`docs/images/README.md`](docs/images/README.md)
-for what to capture once you run it locally.*
-
-## What changed from the first pass
-
-The original prototype had a camera node publishing to `/image_raw` while
-the detector subscribed to `/camera/image_raw` — they never actually talked
-to each other — plus a launch file with a syntax error
-(`LaunchDescription[{...}]`) that couldn't run, and `cv2.imshow` called
-directly inside the detector's subscriber callback (blocks the executor,
-breaks headless/real-robot operation). This rebuild unifies the topic name,
-fixes the launch files, and splits detection from display (`viewer_node`) so
-perception never depends on having a GUI.
+1. **Topic mismatch** — the original camera node published to `/image_raw`
+   while the detector subscribed to `/camera/image_raw`; they never talked
+   to each other. Unified on one topic name used by both the real webcam
+   path and the Gazebo-bridged sim path.
+2. **Broken launch file** — `LaunchDescription[{detector,}]` (subscript with
+   a set literal, not a call) threw at runtime. Rebuilt as
+   `perception.launch.py` with proper `LaunchDescription([...])` and
+   declared launch arguments.
+3. **GUI blocking the executor** — `cv2.imshow` was called directly inside
+   the detector's subscriber callback, which breaks headless/real-robot
+   operation. Split display into its own `viewer_node`.
+4. **Distance bias** — a hardcoded focal length didn't match the simulated
+   camera's actual FOV, inflating every distance estimate by ~38% and
+   making the controller misjudge how far to drive. Fixed by reading the
+   real focal length from `/camera/camera_info`.
+5. **Chasing a ghost** — a deep image-subscription queue let YOLO fall
+   behind the camera's frame rate on CPU, so the controller kept reacting to
+   frames from several positions ago. Fixed with a queue depth of 1 (always
+   process the newest frame) plus a smaller inference resolution.
+6. **Inverted steering** — the robot turned away from the person instead of
+   toward them. The lateral-offset-to-`PointStamped.y` sign didn't match
+   the actual image-to-world convention in practice; flipped it and
+   verified against live `/person/position` and `/cmd_vel` values.
 
 ## Limitations / next steps
 
