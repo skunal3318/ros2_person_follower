@@ -2,14 +2,12 @@
 <sdf version="1.6">
   <world name="follower_world">
 
-    <!-- ================= PHYSICS ================= -->
     <physics name="default_physics" type="ode">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
       <real_time_update_rate>1000</real_time_update_rate>
     </physics>
 
-    <!-- ================= LIGHTING ================= -->
     <light name="sun" type="directional">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 -0.4 0.6</pose>
@@ -31,7 +29,6 @@
       <shadows>true</shadows>
     </scene>
 
-    <!-- ================= GROUND ================= -->
     <model name="ground_plane">
       <static>true</static>
       <link name="link">
@@ -54,7 +51,6 @@
       </link>
     </model>
 
-    <!-- ================= WALLS ================= -->
     <model name="wall_north">
       <static>true</static>
       <pose>0 6 0.5 0 0 0</pose>
@@ -107,30 +103,7 @@
       </link>
     </model>
 
-    <!-- ================= ACTOR ================= -->
-    <!-- Walking loop, derived from the actual room/robot geometry rather
-         than picked by eye:
-           - Walls sit at +/-6m, 0.2m thick -> inner face at 5.9m. The loop
-             radius (4.5m) leaves ~1.5m clearance at every edge midpoint
-             (the closest a straight segment gets to the wall), so no
-             waypoint or interpolated segment can clip a wall.
-           - The rover spawns at the world origin facing +X (`ros_gz_sim
-             create` with no -x/-y/-Y in rover.launch.py). The first
-             waypoint sits 4.5m out at a 20deg bearing from +X, inside the
-             camera's ~40deg half-FOV (horizontal_fov=1.3962634 rad in
-             camera.gazebo.xacro), so the person is visible immediately
-             instead of the robot having to search blindly at startup.
-           - 16 waypoints spaced 22.5deg apart (vs. an 8-point octagon)
-             keep every turn gentle, so the walk reads as a rounded loop
-             instead of cutting sharp polygon corners.
-           - Every non-pause segment covers the same chord length in the
-             same 3.82s, holding a constant ~0.46 m/s, comfortably under
-             controller_node's default max_linear_vel (0.6 m/s) so the
-             rover can actually close the gap and hold target_distance
-             instead of perpetually trailing at full speed. Two 3s pauses
-             (opposite sides of the loop) add natural standing breaks.
-         Mesh paths are relative to this world file; gz-sim resolves them
-         against the directory the world was loaded from. -->
+    
     <actor name="person_1">
       <pose>4.23 1.54 0.90 0 0 2.116</pose>
 
