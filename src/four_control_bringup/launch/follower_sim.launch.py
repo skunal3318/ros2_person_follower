@@ -34,8 +34,6 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            # Gazebo already publishes /camera/image_raw via ros_gz_bridge,
-            # and gz-sim-diff-drive-system already publishes /odom + tf.
             'use_camera_node': 'false',
             'publish_odom': 'false',
             'use_sim_time': 'true',
