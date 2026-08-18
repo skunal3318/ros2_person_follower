@@ -3,7 +3,6 @@
 
   <world name="line_following_world">
 
-    <!-- ================= LIGHT ================= -->
     <light name="sun" type="directional">
       <pose>0 0 10 0 0 0</pose>
       <diffuse>1 1 1 1</diffuse>
@@ -11,7 +10,6 @@
       <direction>-0.5 0.1 -1</direction>
     </light>
 
-    <!-- ================= GROUND ================= -->
     <model name="ground">
       <static>true</static>
       <link name="link">
@@ -38,7 +36,6 @@
       </link>
     </model>
 
-    <!-- ============ CIRCULAR LINE TRACK ============ -->
     <model name="circular_line">
       <static>true</static>
 
