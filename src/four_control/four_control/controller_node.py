@@ -19,11 +19,6 @@ def clamp(value, limit):
 
 
 class ControllerNode(Node):
-    """Follows the tracked person with proportional control on distance and
-    bearing. When tracking is lost it actively sweep-scans instead of
-    idling. Accepts a teleop override from the web dashboard, and can
-    optionally integrate a unicycle odometry model when no simulator/robot
-    already provides one."""
 
     def __init__(self):
         super().__init__('controller_node')
@@ -55,9 +50,6 @@ class ControllerNode(Node):
         self.last_teleop = Twist()
         self.last_teleop_time = None
         self.manual_override = False
-        # Which way the person was last seen drifting, so a search sweep
-        # starts by continuing that way (most likely to reacquire them)
-        # before alternating direction every search_reverse_interval_sec.
         self.last_bearing_sign = 1.0
         self.node_start_time = self.get_clock().now()
 
@@ -100,10 +92,6 @@ class ControllerNode(Node):
         elif self._is_fresh(self.last_position_time, now, self.detection_timeout_sec):
             distance = math.hypot(self.last_position.x, self.last_position.y)
             bearing = math.atan2(self.last_position.y, self.last_position.x)
-            # Turn to face the person first: scale forward speed down as
-            # bearing grows, so a large heading error is corrected by
-            # rotating in place rather than driving forward on a diagonal
-            # while also turning (which visibly does not head toward them).
             heading_gate = max(0.0, math.cos(bearing))
             linear_cmd = self.kp_linear * (distance - self.target_distance) * heading_gate
             cmd.linear.x = clamp(linear_cmd, self.max_linear_vel)
@@ -111,7 +99,6 @@ class ControllerNode(Node):
             self.last_bearing_sign = 1.0 if bearing >= 0.0 else -1.0
         else:
             cmd.angular.z = self._search_angular_vel(now)
-            # cmd.linear.x stays 0 -- rotate in place rather than drive blind.
 
         self.cmd_vel_publisher.publish(cmd)
 
@@ -124,10 +111,6 @@ class ControllerNode(Node):
         return (now - stamp) < rclpy.duration.Duration(seconds=timeout_sec)
 
     def _search_angular_vel(self, now):
-        """Sweep-scan for the person: keep turning the way they were last
-        seen drifting (most likely to reacquire them quickly), then
-        alternate direction every search_reverse_interval_sec in case
-        they went the other way or are no longer where they were lost."""
         reference = self.last_position_time or self.node_start_time
         elapsed_sec = (now - reference).nanoseconds / 1e9
         phase = int(elapsed_sec // self.search_reverse_interval_sec)
