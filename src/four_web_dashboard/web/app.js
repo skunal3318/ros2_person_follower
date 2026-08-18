@@ -6,9 +6,7 @@
   const LINEAR_SPEED = 0.4;
   const ANGULAR_SPEED = 1.0;
 
-  // ---------------------------------------------------------------------
-  // rosbridge connection
-  // ---------------------------------------------------------------------
+
   const statusEl = document.getElementById('connection-status');
   const ros = new ROSLIB.Ros({ url: `ws://${window.location.hostname}:${ROSBRIDGE_PORT}` });
 
@@ -25,9 +23,6 @@
     statusEl.className = 'status status--disconnected';
   });
 
-  // ---------------------------------------------------------------------
-  // topics
-  // ---------------------------------------------------------------------
   const odomTopic = new ROSLIB.Topic({
     ros, name: '/odom', messageType: 'nav_msgs/msg/Odometry',
   });
@@ -75,9 +70,7 @@
     overrideTopic.publish(new ROSLIB.Message({ data: overrideToggle.checked }));
   });
 
-  // ---------------------------------------------------------------------
-  // manual drive: on-screen d-pad + WASD/arrow keys
-  // ---------------------------------------------------------------------
+
   let drive = { linear: 0, angular: 0 };
 
   function publishTeleop() {
@@ -132,9 +125,7 @@
     if (activeKeys.size === 0) driveActions.stop();
   });
 
-  // ---------------------------------------------------------------------
-  // three.js pose viewer
-  // ---------------------------------------------------------------------
+
   const container = document.getElementById('scene-container');
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0f1115);
@@ -173,7 +164,6 @@
   scene.add(robotGroup);
 
   function updateRobotPose(pose) {
-    // ROS: x forward, y left, z up -> three.js: x right, y up, z toward viewer.
     robotGroup.position.set(pose.position.x, 0, -pose.position.y);
     const q = pose.orientation;
     const yaw = Math.atan2(
