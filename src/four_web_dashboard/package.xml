@@ -3,7 +3,7 @@
 <package format="3">
   <name>four_web_dashboard</name>
   <version>0.0.0</version>
-  <description>Browser dashboard (Three.js + roslibjs over rosbridge) for the four_rover person-follower: live 3D pose from odometry, annotated camera feed, and manual drive controls.</description>
+  <description>Web Dashboard</description>
   <maintainer email="kunal780954@gmail.com">kunal-jazzy</maintainer>
   <license>MIT</license>
 
