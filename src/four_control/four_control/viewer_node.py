@@ -7,9 +7,6 @@ import cv2
 
 
 class ViewerNode(Node):
-    """Displays the annotated detection feed in a local OpenCV window.
-    Kept separate from person_detector_node so perception never blocks
-    on a GUI call when running headless (real robot, containers, CI)."""
 
     def __init__(self):
         super().__init__('viewer_node')
