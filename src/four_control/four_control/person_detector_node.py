@@ -20,9 +20,6 @@ def default_model_path():
 
 
 class PersonDetectorNode(Node):
-    """Runs YOLOv8 on the camera feed, tracks the closest person, and
-    publishes an estimated (distance, lateral offset) position for the
-    controller to follow, plus annotated frames for visualization."""
 
     def __init__(self):
         super().__init__('person_detector_node')
@@ -38,22 +35,12 @@ class PersonDetectorNode(Node):
         self.confidence_threshold = self.get_parameter('confidence_threshold').value
         self.person_height_m = self.get_parameter('person_height_m').value
         self.inference_size = self.get_parameter('inference_size').value
-        # Fallback used until a real CameraInfo arrives (e.g. an
-        # uncalibrated real webcam). Gazebo's bridged /camera/camera_info
-        # overrides this with the sensor's true focal length -- using the
-        # wrong value here biases every distance estimate by a constant
-        # ratio and throws off the controller's distance-hold behavior.
         self.focal_length_px = self.get_parameter('focal_length_px').value
         self.jpeg_quality = self.get_parameter('jpeg_quality').value
 
         self.bridge = CvBridge()
         self.model = YOLO(model_path)
 
-        # Depth 1: always process the newest frame instead of working
-        # through a backlog. If YOLO can't keep up with the camera's frame
-        # rate, a deep queue means every detection is computed from a
-        # stale, already-superseded frame -- the controller then reacts
-        # to where the person *was*, not where they are.
         self.image_subscriber = self.create_subscription(
             Image, '/camera/image_raw', self.image_callback, 1)
         self.camera_info_subscriber = self.create_subscription(
@@ -119,10 +106,6 @@ class PersonDetectorNode(Node):
         point.header.stamp = self.get_clock().now().to_msg()
         point.header.frame_id = 'camera_link_optical'
         point.point.x = distance
-        # point.y follows REP103 (+y = robot's left). Empirically the robot
-        # was turning away from the person (right when they were left of
-        # frame), so this is the sign that matches reality, not the
-        # "person right of image-center -> physical right" derivation.
         point.point.y = lateral_offset
         point.point.z = 0.0
         self.position_publisher.publish(point)
